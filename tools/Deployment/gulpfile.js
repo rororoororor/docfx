@@ -101,8 +101,7 @@ gulp.task("e2eTest:test", () => {
     return Common.execAsync("dotnet", ["test"], config.docfx.e2eTestsHome);
 });
 
-gulp.task("e2eTest", gulp.series("e2eTest:installFirefox", "e2eTest:test"));
-// gulp.task("e2eTest", gulp.series("e2eTest:installFirefox", "e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
+gulp.task("e2eTest", gulp.series("e2eTest:installFirefox", "e2eTest:retoreSeed", "e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
 
 gulp.task("publish:myget-dev", () => {
     Guard.argumentNotNullOrEmpty(config.docfx.artifactsFolder, "config.docfx.artifactsFolder", "Can't find artifacts folder in configuration.");
