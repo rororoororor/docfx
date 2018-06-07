@@ -71,6 +71,7 @@ gulp.task("clean", () => {
 gulp.task("e2eTest:installFirefox", () => {
     Guard.argumentNotNullOrEmpty(config.firefox.version, "config.firefox.version", "Can't find firefox version in configuration.");
 
+    process.env.Path += ";C:/Program Files/Mozilla Firefox";
     return Common.execAsync("choco", ["install", "firefox", "--version=" + config.firefox.version, "-y", "--force"]);
 });
 
