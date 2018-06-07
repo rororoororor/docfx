@@ -71,7 +71,7 @@ gulp.task("clean", () => {
 gulp.task("e2eTest:installFirefox", () => {
     Guard.argumentNotNullOrEmpty(config.firefox.version, "config.firefox.version", "Can't find firefox version in configuration.");
 
-    return Common.execAsync("choco", ["install", "firefox", "--version=" + config.firefox.version, "-y"]);
+    return Common.execAsync("choco", ["install", "firefox", "--version=" + config.firefox.version, "-y", "--force"]);
 });
 
 gulp.task("e2eTest:retoreSeed", async () => {
@@ -100,7 +100,7 @@ gulp.task("e2eTest:test", () => {
     return Common.execAsync("dotnet", ["test"], config.docfx.e2eTestsHome);
 });
 
-gulp.task("e2eTest", gulp.series("e2eTest:retoreSeed", "e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
+gulp.task("e2eTest", gulp.series("e2eTest:installFirefox", "e2eTest:retoreSeed", "e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
 // gulp.task("e2eTest", gulp.series("e2eTest:installFirefox", "e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
 
 gulp.task("publish:myget-dev", () => {
