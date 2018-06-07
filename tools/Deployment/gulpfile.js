@@ -74,7 +74,7 @@ gulp.task("e2eTest:installFirefox", () => {
     return Common.execAsync("choco", ["install", "firefox", "--version=" + config.firefox.version, "-y"]);
 });
 
-gulp.task("e2eTest:retoreSeed", () => {
+gulp.task("e2eTest:retoreSeed", async () => {
     Guard.argumentNotNullOrEmpty(config.docfx.docfxSeedRepoUrl, "config.docfx.docfxSeedRepoUrl", "Can't find docfx-seed repo url in configuration.");
     Guard.argumentNotNullOrEmpty(config.docfx.docfxSeedHome, "config.docfx.docfxSeedHome", "Can't find docfx-seed in configuration.");
 
@@ -100,7 +100,7 @@ gulp.task("e2eTest:test", () => {
     return Common.execAsync("dotnet", ["test"], config.docfx.e2eTestsHome);
 });
 
-gulp.task("e2eTest", gulp.series("e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
+gulp.task("e2eTest", gulp.series("e2eTest:retoreSeed", "e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
 // gulp.task("e2eTest", gulp.series("e2eTest:installFirefox", "e2eTest:buildSeed", "e2eTest:restore", "e2eTest:test"));
 
 gulp.task("publish:myget-dev", () => {
