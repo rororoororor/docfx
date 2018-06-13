@@ -43,8 +43,8 @@ Guard.argumentNotNull(config.git, "config.docfx", "Can't find git configuration.
 Guard.argumentNotNull(config.choco, "config.docfx", "Can't find choco configuration.");
 
 gulp.task("build", () => {
-    console.log(" Token:" + process.env.TOKEN);
-    console.log(process.env.MGAPIKEY);
+    console.log(" Token:" + argv.TOKEN);
+    console.log(argv.MGAPIKEY);
 
     // Guard.argumentNotNullOrEmpty(config.docfx.home, "config.docfx.home", "Can't find docfx home directory in configuration.");
     // return Common.execAsync("powershell", ["./build.ps1", "-prod"], config.docfx.home);
