@@ -17,6 +17,7 @@ let Myget = require("./out/myget").Myget;
 let Github = require("./out/github").Github;
 let Chocolatey = require("./out/chocolatey").Chocolatey;
 let SyncBranch = require("./out/syncBranch").SyncBranch;
+var argv = require('yargs').argv;
 
 let configFile = path.resolve("config_gulp.json");
 
