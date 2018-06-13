@@ -43,8 +43,11 @@ Guard.argumentNotNull(config.git, "config.docfx", "Can't find git configuration.
 Guard.argumentNotNull(config.choco, "config.docfx", "Can't find choco configuration.");
 
 gulp.task("build", () => {
-    Guard.argumentNotNullOrEmpty(config.docfx.home, "config.docfx.home", "Can't find docfx home directory in configuration.");
-    return Common.execAsync("powershell", ["./build.ps1", "-prod"], config.docfx.home);
+    console.log(" Token:" + process.env.TOKEN);
+    console.log(process.env.MGAPIKEY);
+
+    // Guard.argumentNotNullOrEmpty(config.docfx.home, "config.docfx.home", "Can't find docfx home directory in configuration.");
+    // return Common.execAsync("powershell", ["./build.ps1", "-prod"], config.docfx.home);
 });
 
 gulp.task("build:release", () => {
@@ -215,6 +218,7 @@ gulp.task("syncBranchCore", () => {
     let docfxHome = path.resolve(config.docfx.home);
     return SyncBranch.runAsync(config.docfx.sshRepoUrl, docfxHome, config.sync.fromBranch, config.sync.targetBranch);
 });
+
 gulp.task("test", gulp.series("clean", "build", "e2eTest", "updateGhPage"));
 gulp.task("dev", gulp.series("clean", "build", "e2eTest"));
 gulp.task("stable", gulp.series("clean", "build", "e2eTest", "publish:myget-dev"));
