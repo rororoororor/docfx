@@ -43,11 +43,8 @@ Guard.argumentNotNull(config.git, "config.docfx", "Can't find git configuration.
 Guard.argumentNotNull(config.choco, "config.docfx", "Can't find choco configuration.");
 
 gulp.task("build", () => {
-    console.log(" Token:" + argv.TOKEN);
-    console.log(argv.MGAPIKEY);
-
-    // Guard.argumentNotNullOrEmpty(config.docfx.home, "config.docfx.home", "Can't find docfx home directory in configuration.");
-    // return Common.execAsync("powershell", ["./build.ps1", "-prod"], config.docfx.home);
+    Guard.argumentNotNullOrEmpty(config.docfx.home, "config.docfx.home", "Can't find docfx home directory in configuration.");
+    return Common.execAsync("powershell", ["./build.ps1", "-prod"], config.docfx.home);
 });
 
 gulp.task("build:release", () => {
@@ -122,9 +119,9 @@ gulp.task("publish:myget-test", () => {
     Guard.argumentNotNullOrEmpty(config.docfx.artifactsFolder, "config.docfx.artifactsFolder", "Can't find artifacts folder in configuration.");
     Guard.argumentNotNullOrEmpty(config.myget.exe, "config.myget.exe", "Can't find nuget command in configuration.");
     Guard.argumentNotNullOrEmpty(config.myget.testUrl, "config.myget.testUrl", "Can't find myget url for docfx test feed in configuration.");
-    Guard.argumentNotNullOrEmpty(process.env.MGAPIKEY, "process.env.MGAPIKEY", "Can't find myget key in Environment Variables.");
+    Guard.argumentNotNullOrEmpty(argv.MGAPIKEY, "process.env.MGAPIKEY", "Can't find myget key in Environment Variables.");
 
-    let mygetToken = process.env.MGAPIKEY;
+    let mygetToken = argv.MGAPIKEY;
     let artifactsFolder = path.resolve(config.docfx["artifactsFolder"]);
 
     return Myget.publishToMygetAsync(artifactsFolder, config.myget["exe"], mygetToken, config.myget["testUrl"]);
@@ -219,7 +216,7 @@ gulp.task("syncBranchCore", () => {
     return SyncBranch.runAsync(config.docfx.sshRepoUrl, docfxHome, config.sync.fromBranch, config.sync.targetBranch);
 });
 
-gulp.task("test", gulp.series("clean", "build", "e2eTest", "updateGhPage"));
+gulp.task("test", gulp.series("clean", "build", "e2eTest", "publish:myget-test"));
 gulp.task("dev", gulp.series("clean", "build", "e2eTest"));
 gulp.task("stable", gulp.series("clean", "build", "e2eTest", "publish:myget-dev"));
 
