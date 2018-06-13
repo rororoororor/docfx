@@ -1,21 +1,12 @@
-<<<<<<< HEAD
-=======
-Version Notes (Current Version: v2.36.2)
+Version Notes (Current Version: v2.37)
 =======================================
->>>>>>> bfbf70744ca27c02aabb225064188f1edf8fd8e4
 
 v2.36.2
 -----------
-<<<<<<< HEAD
-=======
-Version Notes (Current Version: v2.36.1)
-=======================================
-=======
 1. Bug fix:
     1. Improve download command error message. (#2805)
     2. Fix code indent issue. (#2830)
     3. Fix error when generating metadata. (#2852)
->>>>>>> bfbf70744ca27c02aabb225064188f1edf8fd8e4
 
 v2.36.1
 -----------
