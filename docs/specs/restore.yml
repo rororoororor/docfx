@@ -147,7 +147,7 @@ inputs:
     monikerDefinition: a.json
 outputs:
   .errors.log: |
-    ["error","file-not-found","*","docfx.yml",1,20]
+    ["warning","file-not-found","*","docfx.yml",1,20]
 ---
 # Restore longpath repo
 inputs:

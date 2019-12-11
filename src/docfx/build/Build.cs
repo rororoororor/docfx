@@ -64,7 +64,7 @@ namespace Microsoft.Docs.Build
                 catch (Exception ex) when (DocfxException.IsDocfxException(ex, out var dex))
                 {
                     Log.Write(dex);
-                    errorLog.Write(dex.Error, isException: true);
+                    errorLog.Write(dex.Error);
                     return false;
                 }
                 finally
@@ -186,7 +186,7 @@ namespace Microsoft.Docs.Build
             }
             catch (Exception ex) when (DocfxException.IsDocfxException(ex, out var dex))
             {
-                context.ErrorLog.Write(path, dex.Error, isException: true);
+                context.ErrorLog.Write(path, dex.Error);
                 context.PublishModelBuilder.ExcludeFromOutput(file);
             }
             catch

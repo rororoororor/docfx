@@ -350,7 +350,7 @@ inputs:
     - array
 outputs:
   .errors.log: |
-    ["error","unexpected-type","Expected type 'Object' but got 'Array'","a.yml",1,1]
+    ["warning","unexpected-type","Expected type 'Object' but got 'Array'","a.yml",1,1]
 ---
 # Validate bookmark against content HTML after applying template for SDP 
 legacy: true

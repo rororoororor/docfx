@@ -83,16 +83,15 @@ namespace Microsoft.Docs.Build
             return hasErrors;
         }
 
-        public bool Write(FilePath file, Error error, bool isException = false)
+        public bool Write(FilePath file, Error error)
         {
             return Write(
                 file == error.FilePath || error.FilePath != null
                     ? error
-                    : new Error(error.Level, error.Code, error.Message, file, error.Line, error.Column),
-                isException);
+                    : new Error(error.Level, error.Code, error.Message, file, error.Line, error.Column));
         }
 
-        public bool Write(Error error, bool isException = false)
+        public bool Write(Error error)
         {
             var config = _config();
 
@@ -101,7 +100,7 @@ namespace Microsoft.Docs.Build
                 error = error.WithCustomError(customError);
             }
 
-            var level = isException ? ErrorLevel.Error : error.Level;
+            var level = error.Level;
             if (level == ErrorLevel.Off)
             {
                 return false;
